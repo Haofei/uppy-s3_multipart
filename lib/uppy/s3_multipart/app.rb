@@ -41,7 +41,8 @@ module Uppy
             type     = r.params["type"]
             filename = r.params["filename"]
 
-            key = SecureRandom.hex + File.extname(filename.to_s)
+            key = r.env['HTTP_CUSTOM_PREFIX'] || ''
+            key << SecureRandom.hex + File.extname(filename.to_s)
             key = [*opts[:prefix], key].join("/")
 
             options = {}
